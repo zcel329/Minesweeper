@@ -41,16 +41,18 @@ public class Main {
         trueBoard = trueBoard.createTrueBoard(boardtype);
         char[][] userBoard = trueBoard.createPlayerBoard();
 
-        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
-            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
-        }
+
+        // For testing
+//        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
+//            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
+//        }
 
         boolean run = true;
         while (run) {
             int xPos, yPos;
 
-            for (int i = 0; i < userBoard.length; i++) {
-                System.out.println(Arrays.toString(userBoard[i]));
+            for (char[] chars : userBoard) {
+                System.out.println(Arrays.toString(chars));
             }
 
             // Getting a valid x position
@@ -60,7 +62,7 @@ public class Main {
                 try {
                     xPos = Integer.parseInt(xInput);
                     break;
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException ignored) {
                 }
             }
 
@@ -71,7 +73,7 @@ public class Main {
                 try {
                     yPos = Integer.parseInt(xInput);
                     break;
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException ignored) {
                 }
             }
 
@@ -79,6 +81,10 @@ public class Main {
 
             switch (tileValue) {
                 case -1 -> {
+                    Utility.createGameOverBoard(userBoard,trueBoard);
+                    for (char[] chars : userBoard) {
+                        System.out.println(Arrays.toString(chars));
+                    }
                     System.out.println("***GAME OVER***");
                     run = false;
                 }

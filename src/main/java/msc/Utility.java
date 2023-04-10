@@ -74,7 +74,7 @@ public class Utility {
 
         Board.Difficulty difficulty = board.getDifficulty();
 
-        int[] searchValues = searchValues(x,y, difficulty.height, difficulty.width);
+        int[] searchValues = searchValues(x, y, difficulty.height, difficulty.width);
 
         for (int a = searchValues[0]; a < searchValues[1]; a++) {
             for (int b = searchValues[2]; b < searchValues[3]; b++) {
@@ -84,6 +84,20 @@ public class Utility {
 
 
         return charArr;
-}
+    }
+
+    public static void createGameOverBoard(char[][] charArr, Board board) {
+        Board.Difficulty difficulty = board.getDifficulty();
+
+        for (int i = 0; i < difficulty.height; i++) {
+            for (int j = 0; j < difficulty.width; j++) {
+                if (board.getBoardArray()[i][j] == -1) {
+                    charArr[i][j] = 'X';
+                }
+            }
+        }
+    }
+
+
 
 }

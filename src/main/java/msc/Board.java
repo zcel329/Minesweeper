@@ -1,5 +1,6 @@
 package msc;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static msc.Utility.searchValues;
@@ -87,7 +88,7 @@ public class Board {
                     continue;
                 }
 
-                int[] searchValues = searchValues(i,j, this.height, this.width);
+                int[] searchValues = searchValues(i, j, this.height, this.width);
 
                 for (int a = searchValues[0]; a < searchValues[1]; a++) {
                     for (int b = searchValues[2]; b < searchValues[3]; b++) {
@@ -114,9 +115,7 @@ public class Board {
     public char[][] createPlayerBoard() {
         char[][] arr = new char[difficulty.height][difficulty.width];
         for (int i = 0; i < this.height; i++) {
-            for (int j = 0; j < this.width; j++) {
-                arr[i][j] = '*';
-            }
+            Arrays.fill(arr[i], '*');
         }
         return arr;
     }
