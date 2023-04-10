@@ -94,15 +94,13 @@ public class Main {
                         for (int i = 0; i < boardtype.height; i++) {
                             for (int j = 0; j < boardtype.width; j++) {
                                 if (userBoard[i][j] == '0') {
-                                    userBoard = Utility.searchAdjacentTiles(userBoard,trueBoard,i,j);
+                                    Utility.searchAdjacentTiles(userBoard,trueBoard,i,j);
                                 }
                             }
                         }
                     }
                 }
-                default -> {
-                    userBoard[xPos][yPos] = (char)(trueBoard.getBoardArray()[xPos][yPos]+'0');
-                }
+                default -> userBoard[xPos][yPos] = (char)(trueBoard.getBoardArray()[xPos][yPos]+'0');
             }
         }
     }

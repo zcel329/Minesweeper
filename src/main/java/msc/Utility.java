@@ -70,7 +70,7 @@ public class Utility {
         return new int[]{aInit, aMax, bInit, bMax};
     }
 
-    public static char[][] searchAdjacentTiles(char[][] charArr, Board board, int x, int y) {
+    public static void searchAdjacentTiles(char[][] charArr, Board board, int x, int y) {
 
         Board.Difficulty difficulty = board.getDifficulty();
 
@@ -81,9 +81,6 @@ public class Utility {
                 charArr[x + a][y + b] = (char) (board.getBoardArray()[x + a][y + b] + '0');
             }
         }
-
-
-        return charArr;
     }
 
     public static void createGameOverBoard(char[][] charArr, Board board) {
