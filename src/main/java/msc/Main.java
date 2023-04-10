@@ -67,7 +67,7 @@ public class Main {
                 String xInput = myObj.nextLine();
                 try {
                     widthPos = Integer.parseInt(xInput)-1;
-                    if (widthPos >= difficulty.width) {
+                    if ((widthPos >= difficulty.width) || (widthPos < 0)) {
                         continue;
                     }
                     break;
@@ -81,7 +81,7 @@ public class Main {
                 String xInput = myObj.nextLine();
                 try {
                     heightPos = Integer.parseInt(xInput)-1;
-                    if (heightPos >= difficulty.height) {
+                    if ((heightPos >= difficulty.height) || (heightPos < 0)) {
                         continue;
                     }
                     break;
@@ -124,6 +124,26 @@ public class Main {
                     }
                 }
                 default -> userBoard[heightPos][widthPos] = (char) (trueBoard.getBoardArray()[heightPos][widthPos] + '0');
+            }
+
+            int mineCounter = 0;
+
+            for (int i = 0; i < difficulty.height; i++) {
+                for (int j = 0; j < difficulty.width; j++) {
+                    if (userBoard[i][j] == '*') {
+                        mineCounter++;
+                    }
+                }
+            }
+
+            if (mineCounter == difficulty.mines) {
+                Utility.createGameOverBoard(userBoard, trueBoard);
+                Utility.updateDisplayBoard(displayBoard,userBoard,difficulty);
+                for (char[] chars : displayBoard) {
+                    System.out.println(Arrays.toString(chars));
+                }
+                System.out.println("***YOU WIN***");
+                run = false;
             }
         }
     }
