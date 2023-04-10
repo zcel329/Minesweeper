@@ -39,8 +39,13 @@ public class Main {
 
         Board trueBoard = new Board();
         trueBoard = trueBoard.createTrueBoard(boardtype);
-        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
-            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
+        char[][] userBoard = trueBoard.createPlayerBoard();
+
+//        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
+//            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
+//        }
+        for (int i = 0; i < userBoard.length; i++) {
+            System.out.println(Arrays.toString(userBoard[i]));
         }
 
     }

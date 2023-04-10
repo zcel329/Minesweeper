@@ -5,9 +5,9 @@ import java.util.Random;
 public class Board {
 
     enum Difficulty {
-        BEGINNER(9,9,10),
-        INTERMEDIATE(16,16,40),
-        EXPERT(16,30,99);
+        BEGINNER(9, 9, 10),
+        INTERMEDIATE(16, 16, 40),
+        EXPERT(16, 30, 99);
 
         public final int height;
         public final int width;
@@ -25,12 +25,16 @@ public class Board {
     private int[][] boardArray;
     private int mines;
 
-    public Board() {}
+    private Difficulty difficulty;
+
+    public Board() {
+    }
 
     private Board(Difficulty setting) {
         this.height = setting.height;
         this.width = setting.width;
         this.mines = setting.mines;
+        this.difficulty = setting;
         boardArray = new int[height][width];
 
     }
@@ -59,8 +63,8 @@ public class Board {
     public void scrambleMines() {
         Random random = new Random();
         // Shuffling mines using the Fisher Yates method
-        for (int i = boardArray.length - 1; i > 0; i--) {
-            for (int j = boardArray[i].length - 1; j > 0; j--) {
+        for (int i = this.height - 1; i > 0; i--) {
+            for (int j = this.width - 1; j > 0; j--) {
                 int m = random.nextInt(i + 1);
                 int n = random.nextInt(j + 1);
 
@@ -73,8 +77,8 @@ public class Board {
 
     public void populateBoard() {
         int mineCounter = 0;
-        for (int i = 0; i < boardArray.length; i++) {
-            for (int j = 0; j < boardArray.length; j++) {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
 
                 // if bomb
                 if (boardArray[i][j] == -1) {
@@ -84,37 +88,37 @@ public class Board {
                 else if ((i == 0) && (j == 0)) {
                     for (int a = 0; a < 2; a++) {
                         for (int b = 0; b < 2; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
                     }
                 }
                 // if top right
-                else if ((i == 0) && (j == boardArray.length-1)) {
+                else if ((i == 0) && (j == this.width - 1)) {
                     for (int a = 0; a < 2; a++) {
                         for (int b = -1; b < 1; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
                     }
                 }
                 // if bottom left
-                else if ((i == boardArray.length-1) && (j == 0)) {
+                else if ((i == this.height - 1) && (j == 0)) {
                     for (int a = -1; a < 1; a++) {
                         for (int b = 0; b < 2; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
                     }
                 }
                 // if bottom right
-                else if ((i == boardArray.length-1) && (j == boardArray.length-1)){
+                else if ((i == this.height - 1) && (j == this.width - 1)) {
                     for (int a = -1; a < 1; a++) {
                         for (int b = -1; b < 1; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
@@ -124,17 +128,17 @@ public class Board {
                 else if (j == 0) {
                     for (int a = -1; a < 2; a++) {
                         for (int b = 0; b < 2; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
                     }
                 }
                 // if non-corner right
-                else if (j == boardArray.length-1) {
+                else if (j == this.width - 1) {
                     for (int a = -1; a < 2; a++) {
                         for (int b = -1; b < 1; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
@@ -144,17 +148,17 @@ public class Board {
                 else if (i == 0) {
                     for (int a = 0; a < 2; a++) {
                         for (int b = -1; b < 2; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
                     }
                 }
                 // if non-corner bot
-                else if (i == boardArray.length-1) {
+                else if (i == this.height - 1) {
                     for (int a = -1; a < 1; a++) {
                         for (int b = -1; b < 2; b++) {
-                            if (boardArray[i+a][j+b] == -1) {
+                            if (boardArray[i + a][j + b] == -1) {
                                 mineCounter++;
                             }
                         }
@@ -171,10 +175,11 @@ public class Board {
                     }
                 }
                 boardArray[i][j] = mineCounter;
-                mineCounter=0;
+                mineCounter = 0;
             }
         }
     }
+
     public Board createTrueBoard(Difficulty difficulty) {
         Board board = new Board(difficulty);
         board.placeMines();
@@ -183,8 +188,13 @@ public class Board {
         return board;
     }
 
-    public char[][] createPlayerBoard(Difficulty difficulty) {
-        char[][] arr = {{'*', '*'}, {'*', '*'}};
+    public char[][] createPlayerBoard() {
+        char[][] arr = new char[difficulty.height][difficulty.width];
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                arr[i][j] = '*';
+            }
+        }
         return arr;
     }
 }
