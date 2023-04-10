@@ -123,4 +123,18 @@ public class Board {
     public Difficulty getDifficulty() {
         return difficulty;
     }
+
+    public void moveMine(int x, int y) {
+
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                if (boardArray[i][j] != -1) {
+                    boardArray[i][j] = -1;
+                    boardArray[x][y] = 0;
+                    this.populateBoard();
+                    return;
+                }
+            }
+        }
+    }
 }

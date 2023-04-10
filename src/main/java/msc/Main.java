@@ -42,12 +42,13 @@ public class Main {
         char[][] userBoard = trueBoard.createPlayerBoard();
 
 
-        // For testing
-//        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
-//            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
-//        }
+//        For testing
+        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
+            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
+        }
 
         boolean run = true;
+        boolean firstMove = true;
         while (run) {
             int xPos, yPos;
 
@@ -86,6 +87,16 @@ public class Main {
             }
 
             int tileValue = trueBoard.getBoardArray()[xPos][yPos];
+
+
+            // Making sure that the game can't be over in first move
+            if (firstMove) {
+                firstMove = false;
+                if (tileValue == -1) {
+                    trueBoard.moveMine(xPos,yPos);
+                    tileValue = trueBoard.getBoardArray()[xPos][yPos];
+                }
+            }
 
             switch (tileValue) {
                 case -1 -> {
