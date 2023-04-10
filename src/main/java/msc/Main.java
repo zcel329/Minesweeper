@@ -45,14 +45,10 @@ public class Main {
         boolean run = true;
         boolean firstMove = true;
 
-        String[][] displayBoard = Utility.createDisplayBoard(difficulty);
-
         while (run) {
             int heightPos, widthPos;
 
-            Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
-            
-            for (String[] chars : displayBoard) {
+            for (char[] chars : userBoard) {
                 System.out.println(Arrays.toString(chars));
             }
 
@@ -125,7 +121,7 @@ public class Main {
                     String input = myObj.nextLine();
                     if (input.equalsIgnoreCase("y")) {
                         if (Utility.searchAdjacentTiles(userBoard,trueBoard,heightPos,widthPos,-1)) {
-                            Utility.gameOver(userBoard,trueBoard,displayBoard);
+                            Utility.gameOver(userBoard,trueBoard);
                             run = false;
                         }
                     } else {
@@ -148,7 +144,7 @@ public class Main {
 
             switch (tileValue) {
                 case -1 -> {
-                    Utility.gameOver(userBoard,trueBoard,displayBoard);
+                    Utility.gameOver(userBoard,trueBoard);
                     run = false;
                 }
                 case 0 -> {
@@ -179,8 +175,7 @@ public class Main {
             }
             if (mineCounter == difficulty.mines) {
                 Utility.createGameOverBoard(userBoard, trueBoard);
-                Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
-                for (String[] chars : displayBoard) {
+                for (char[] chars : userBoard) {
                     System.out.println(Arrays.toString(chars));
                 }
                 System.out.println("***YOU WIN***");

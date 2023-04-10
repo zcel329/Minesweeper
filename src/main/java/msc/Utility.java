@@ -104,36 +104,9 @@ public class Utility {
             }
         }
     }
-
-    public static String[][] createDisplayBoard(Board.Difficulty difficulty) {
-        String[][] displayBoard = new String[difficulty.height + 2][difficulty.width + 2];
-        for (int i = 0; i < difficulty.height + 2; i++) {
-            Arrays.fill(displayBoard[i], " ");
-        }
-        for (int i = 0; i < difficulty.height + 1; i++) {
-            displayBoard[i + 1][0] = String.valueOf(i);
-        }
-        for (int j = 0; j < difficulty.width + 1; j++) {
-            displayBoard[0][j + 1] = String.valueOf(j);
-        }
-        displayBoard[0][0] = "/";
-        displayBoard[0][1] = "/";
-        displayBoard[1][0] = "/";
-        return displayBoard;
-    }
-
-    public static void updateDisplayBoard(String[][] arr1, char[][] arr2, Board.Difficulty difficulty) {
-        for (int i = 0; i < difficulty.height; i++) {
-            for (int j = 0; j < difficulty.width; j++) {
-                arr1[i + 2][j + 2] = String.valueOf(arr2[i][j]);
-            }
-        }
-    }
-
-    public static void gameOver(char[][] userBoard, Board trueBoard, String[][] displayBoard) {
+    public static void gameOver(char[][] userBoard, Board trueBoard) {
         Utility.createGameOverBoard(userBoard, trueBoard);
-        Utility.updateDisplayBoard(displayBoard, userBoard, trueBoard.getDifficulty());
-        for (String[] chars : displayBoard) {
+        for (char[] chars : userBoard) {
             System.out.println(Arrays.toString(chars));
         }
         System.out.println("***GAME OVER***");
