@@ -45,14 +45,14 @@ public class Main {
         boolean run = true;
         boolean firstMove = true;
 
-        char[][] displayBoard = Utility.createDisplayBoard(difficulty);
+        String[][] displayBoard = Utility.createDisplayBoard(difficulty);
 
         while (run) {
             int heightPos, widthPos;
 
             Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
-
-            for (char[] chars : displayBoard) {
+            
+            for (String[] chars : displayBoard) {
                 System.out.println(Arrays.toString(chars));
             }
 
@@ -180,7 +180,7 @@ public class Main {
             if (mineCounter == difficulty.mines) {
                 Utility.createGameOverBoard(userBoard, trueBoard);
                 Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
-                for (char[] chars : displayBoard) {
+                for (String[] chars : displayBoard) {
                     System.out.println(Arrays.toString(chars));
                 }
                 System.out.println("***YOU WIN***");

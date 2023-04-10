@@ -74,7 +74,7 @@ public class Utility {
 
     public static Boolean searchAdjacentTiles(char[][] charArr, Board board, int heightPos, int widthPos, int target) {
 
-        Boolean bool = false;
+        boolean bool = false;
 
         Board.Difficulty difficulty = board.getDifficulty();
 
@@ -105,35 +105,35 @@ public class Utility {
         }
     }
 
-    public static char[][] createDisplayBoard(Board.Difficulty boardtype) {
-        char[][] displayBoard = new char[boardtype.height + 2][boardtype.width + 2];
-        for (int i = 0; i < boardtype.height + 2; i++) {
-            Arrays.fill(displayBoard[i], ' ');
+    public static String[][] createDisplayBoard(Board.Difficulty difficulty) {
+        String[][] displayBoard = new String[difficulty.height + 2][difficulty.width + 2];
+        for (int i = 0; i < difficulty.height + 2; i++) {
+            Arrays.fill(displayBoard[i], " ");
         }
-        for (int i = 0; i < boardtype.height + 1; i++) {
-            displayBoard[i + 1][0] = (char) (i + '0');
+        for (int i = 0; i < difficulty.height + 1; i++) {
+            displayBoard[i + 1][0] = String.valueOf(i);
         }
-        for (int j = 0; j < boardtype.width + 1; j++) {
-            displayBoard[0][j + 1] = (char) (j + '0');
+        for (int j = 0; j < difficulty.width + 1; j++) {
+            displayBoard[0][j + 1] = String.valueOf(j);
         }
-        displayBoard[0][0] = '/';
-        displayBoard[0][1] = '/';
-        displayBoard[1][0] = '/';
+        displayBoard[0][0] = "/";
+        displayBoard[0][1] = "/";
+        displayBoard[1][0] = "/";
         return displayBoard;
     }
 
-    public static void updateDisplayBoard(char[][] arr1, char[][] arr2, Board.Difficulty boardtype) {
-        for (int i = 0; i < boardtype.height; i++) {
-            for (int j = 0; j < boardtype.width; j++) {
-                arr1[i + 2][j + 2] = arr2[i][j];
+    public static void updateDisplayBoard(String[][] arr1, char[][] arr2, Board.Difficulty difficulty) {
+        for (int i = 0; i < difficulty.height; i++) {
+            for (int j = 0; j < difficulty.width; j++) {
+                arr1[i + 2][j + 2] = String.valueOf(arr2[i][j]);
             }
         }
     }
 
-    public static void gameOver(char[][] userBoard, Board trueBoard, char[][] displayBoard) {
+    public static void gameOver(char[][] userBoard, Board trueBoard, String[][] displayBoard) {
         Utility.createGameOverBoard(userBoard, trueBoard);
         Utility.updateDisplayBoard(displayBoard, userBoard, trueBoard.getDifficulty());
-        for (char[] chars : displayBoard) {
+        for (String[] chars : displayBoard) {
             System.out.println(Arrays.toString(chars));
         }
         System.out.println("***GAME OVER***");
