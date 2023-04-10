@@ -42,11 +42,6 @@ public class Main {
         char[][] userBoard = trueBoard.createPlayerBoard();
 
 
-//        For testing
-//        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
-//            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
-//        }
-
         boolean run = true;
         boolean firstMove = true;
 
@@ -129,14 +124,8 @@ public class Main {
                     System.out.println("Are you sure you want to reveal all adjacent tiles? (Y/N)");
                     String input = myObj.nextLine();
                     if (input.equalsIgnoreCase("y")) {
-                        Boolean foundBomb = Utility.searchAdjacentTiles(userBoard,trueBoard,heightPos,widthPos,-1);
-                        if (foundBomb) {
-                            Utility.createGameOverBoard(userBoard, trueBoard);
-                            Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
-                            for (char[] chars : displayBoard) {
-                                System.out.println(Arrays.toString(chars));
-                            }
-                            System.out.println("***GAME OVER***");
+                        if (Utility.searchAdjacentTiles(userBoard,trueBoard,heightPos,widthPos,-1)) {
+                            Utility.gameOver(userBoard,trueBoard,displayBoard);
                             run = false;
                         }
                     } else {
@@ -159,12 +148,7 @@ public class Main {
 
             switch (tileValue) {
                 case -1 -> {
-                    Utility.createGameOverBoard(userBoard, trueBoard);
-                    Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
-                    for (char[] chars : displayBoard) {
-                        System.out.println(Arrays.toString(chars));
-                    }
-                    System.out.println("***GAME OVER***");
+                    Utility.gameOver(userBoard,trueBoard,displayBoard);
                     run = false;
                 }
                 case 0 -> {

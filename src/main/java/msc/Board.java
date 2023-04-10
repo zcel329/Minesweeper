@@ -124,13 +124,13 @@ public class Board {
         return difficulty;
     }
 
-    public void moveMine(int x, int y) {
+    public void moveMine(int heightPos, int widthPos) {
 
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
                 if (boardArray[i][j] != -1) {
                     boardArray[i][j] = -1;
-                    boardArray[x][y] = 0;
+                    boardArray[heightPos][widthPos] = 0;
                     this.populateBoard();
                     return;
                 }
