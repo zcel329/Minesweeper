@@ -10,7 +10,7 @@ public class Main {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Choose a difficulty below by entering the corresponding number: \n 1: [BEGINNER] \n 2: [INTERMEDIATE] \n 3: [EXPERT]");
 
-        String selection = myObj.nextLine();  // Read user input
+        String selection = myObj.nextLine();
 
         try {
             int num = Integer.parseInt(selection);
@@ -44,9 +44,38 @@ public class Main {
 //        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
 //            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
 //        }
-        for (int i = 0; i < userBoard.length; i++) {
-            System.out.println(Arrays.toString(userBoard[i]));
-        }
 
+        while (true) {
+
+            int xPos, yPos;
+
+            for (int i = 0; i < userBoard.length; i++) {
+                System.out.println(Arrays.toString(userBoard[i]));
+            }
+
+            // Getting a valid x position
+            while (true) {
+                System.out.println("Enter an X pos:");
+                String xInput = myObj.nextLine();
+                try {
+                     xPos = Integer.parseInt(xInput);
+                    break;
+                } catch (NumberFormatException e) {
+                }
+            }
+
+            // Getting a valid y position
+            while (true) {
+                System.out.println("Enter a Y pos:");
+                String xInput = myObj.nextLine();
+                try {
+                    yPos = Integer.parseInt(xInput);
+                    break;
+                } catch (NumberFormatException e) {
+                }
+            }
+
+
+        }
     }
 }
