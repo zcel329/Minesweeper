@@ -197,4 +197,8 @@ public class Board {
         }
         return arr;
     }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
 }

@@ -41,12 +41,12 @@ public class Main {
         trueBoard = trueBoard.createTrueBoard(boardtype);
         char[][] userBoard = trueBoard.createPlayerBoard();
 
-//        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
-//            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
-//        }
+        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
+            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
+        }
 
-        while (true) {
-
+        boolean run = true;
+        while (run) {
             int xPos, yPos;
 
             for (int i = 0; i < userBoard.length; i++) {
@@ -58,7 +58,7 @@ public class Main {
                 System.out.println("Enter an X pos:");
                 String xInput = myObj.nextLine();
                 try {
-                     xPos = Integer.parseInt(xInput);
+                    xPos = Integer.parseInt(xInput);
                     break;
                 } catch (NumberFormatException e) {
                 }
@@ -75,7 +75,20 @@ public class Main {
                 }
             }
 
+            int tileValue = trueBoard.getBoardArray()[xPos][yPos];
 
+            switch (tileValue) {
+                case -1 -> {
+                    System.out.println("***GAME OVER***");
+                    run = false;
+                }
+                case 1 -> {
+                    userBoard[xPos][yPos] = (char)(trueBoard.getBoardArray()[xPos][yPos]+'0');
+                }
+                default -> {
+                    userBoard = Utility.searchAdjacentTiles(userBoard,trueBoard,xPos,yPos,-1);
+                }
+            }
         }
     }
 }
