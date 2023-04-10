@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Board.Difficulty boardtype;
+        Board.Difficulty difficulty;
 
         Scanner myObj = new Scanner(System.in);
         System.out.println("Choose a difficulty below by entering the corresponding number: \n 1: [BEGINNER] \n 2: [INTERMEDIATE] \n 3: [EXPERT]");
@@ -16,55 +16,58 @@ public class Main {
             int num = Integer.parseInt(selection);
             switch (num) {
                 case 1 -> {
-                    boardtype = Board.Difficulty.BEGINNER;
+                    difficulty = Board.Difficulty.BEGINNER;
                     System.out.println("You have chosen BEGINNER \n");
                 }
                 case 2 -> {
-                    boardtype = Board.Difficulty.INTERMEDIATE;
+                    difficulty = Board.Difficulty.INTERMEDIATE;
                     System.out.println("You have chosen INTERMEDIATE \n");
                 }
                 case 3 -> {
-                    boardtype = Board.Difficulty.EXPERT;
+                    difficulty = Board.Difficulty.EXPERT;
                     System.out.println("You have chosen EXPERT \n");
                 }
                 default -> {
                     System.out.println("Error: invalid difficulty choice. Defaulted to BEGINNER difficulty.");
-                    boardtype = Board.Difficulty.BEGINNER;
+                    difficulty = Board.Difficulty.BEGINNER;
                 }
             }
         } catch (NumberFormatException error) {
             System.out.println("Error: Invalid difficulty choice. Defaulted to BEGINNER difficulty.");
-            boardtype = Board.Difficulty.BEGINNER;
+            difficulty = Board.Difficulty.BEGINNER;
         }
 
         Board trueBoard = new Board();
-        trueBoard = trueBoard.createTrueBoard(boardtype);
+        trueBoard = trueBoard.createTrueBoard(difficulty);
         char[][] userBoard = trueBoard.createPlayerBoard();
 
 
 //        For testing
-        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
-            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
-        }
+//        for (int i = 0; i < trueBoard.getBoardArray().length; i++) {
+//            System.out.println(Arrays.toString(trueBoard.getBoardArray()[i]));
+//        }
 
         boolean run = true;
         boolean firstMove = true;
-        while (run) {
-            int xPos, yPos;
 
-            for (char[] chars : userBoard) {
+        char[][] displayBoard = Utility.createDisplayBoard(difficulty);
+
+        while (run) {
+            int heightPos, widthPos;
+
+            Utility.updateDisplayBoard(displayBoard,userBoard,difficulty);
+
+            for (char[] chars : displayBoard) {
                 System.out.println(Arrays.toString(chars));
             }
 
-            Board.Difficulty difficulty = trueBoard.getDifficulty();
-
-            // Getting a valid x position
+            // Getting a valid X position
             while (true) {
-                System.out.println("Enter an X pos:");
+                System.out.println("Enter a X pos:");
                 String xInput = myObj.nextLine();
                 try {
-                    xPos = Integer.parseInt(xInput);
-                    if (xPos >= difficulty.height) {
+                    widthPos = Integer.parseInt(xInput)-1;
+                    if (widthPos >= difficulty.width) {
                         continue;
                     }
                     break;
@@ -72,13 +75,13 @@ public class Main {
                 }
             }
 
-            // Getting a valid y position
+            // Getting a valid Y position
             while (true) {
-                System.out.println("Enter a Y pos:");
+                System.out.println("Enter an Y pos:");
                 String xInput = myObj.nextLine();
                 try {
-                    yPos = Integer.parseInt(xInput);
-                    if (yPos >= difficulty.width) {
+                    heightPos = Integer.parseInt(xInput)-1;
+                    if (heightPos >= difficulty.height) {
                         continue;
                     }
                     break;
@@ -86,40 +89,41 @@ public class Main {
                 }
             }
 
-            int tileValue = trueBoard.getBoardArray()[xPos][yPos];
+            int tileValue = trueBoard.getBoardArray()[heightPos][widthPos];
 
 
             // Making sure that the game can't be over in first move
             if (firstMove) {
                 firstMove = false;
                 if (tileValue == -1) {
-                    trueBoard.moveMine(xPos,yPos);
-                    tileValue = trueBoard.getBoardArray()[xPos][yPos];
+                    trueBoard.moveMine(heightPos, widthPos);
+                    tileValue = trueBoard.getBoardArray()[heightPos][widthPos];
                 }
             }
 
             switch (tileValue) {
                 case -1 -> {
-                    Utility.createGameOverBoard(userBoard,trueBoard);
-                    for (char[] chars : userBoard) {
+                    Utility.createGameOverBoard(userBoard, trueBoard);
+                    Utility.updateDisplayBoard(displayBoard,userBoard,difficulty);
+                    for (char[] chars : displayBoard) {
                         System.out.println(Arrays.toString(chars));
                     }
                     System.out.println("***GAME OVER***");
                     run = false;
                 }
                 case 0 -> {
-                    userBoard[xPos][yPos] = (char)(trueBoard.getBoardArray()[xPos][yPos]+'0');
+                    userBoard[heightPos][widthPos] = (char) (trueBoard.getBoardArray()[heightPos][widthPos] + '0');
                     for (int k = 0; k < 20; k++) {
-                        for (int i = 0; i < boardtype.height; i++) {
-                            for (int j = 0; j < boardtype.width; j++) {
+                        for (int i = 0; i < difficulty.height; i++) {
+                            for (int j = 0; j < difficulty.width; j++) {
                                 if (userBoard[i][j] == '0') {
-                                    Utility.searchAdjacentTiles(userBoard,trueBoard,i,j);
+                                    Utility.searchAdjacentTiles(userBoard, trueBoard, i, j);
                                 }
                             }
                         }
                     }
                 }
-                default -> userBoard[xPos][yPos] = (char)(trueBoard.getBoardArray()[xPos][yPos]+'0');
+                default -> userBoard[heightPos][widthPos] = (char) (trueBoard.getBoardArray()[heightPos][widthPos] + '0');
             }
         }
     }

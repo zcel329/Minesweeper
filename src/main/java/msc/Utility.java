@@ -1,5 +1,7 @@
 package msc;
 
+import java.util.Arrays;
+
 public class Utility {
 
     public static int[] searchValues(int x, int y, int height, int width) {
@@ -91,6 +93,31 @@ public class Utility {
                 if (board.getBoardArray()[i][j] == -1) {
                     charArr[i][j] = 'X';
                 }
+            }
+        }
+    }
+
+    public static char[][] createDisplayBoard(Board.Difficulty boardtype) {
+        char[][] displayBoard = new char[boardtype.height + 2][boardtype.width + 2];
+        for (int i = 0; i < boardtype.height+2; i++) {
+            Arrays.fill(displayBoard[i], ' ');
+        }
+        for (int i = 0; i < boardtype.height+1; i++) {
+            displayBoard[i+1][0] = (char) (i + '0');
+        }
+        for (int j = 0; j < boardtype.width+1; j++) {
+            displayBoard[0][j+1] = (char) (j + '0');
+        }
+        displayBoard[0][0] = '/';
+        displayBoard[0][1] = '/';
+        displayBoard[1][0] = '/';
+        return displayBoard;
+    }
+
+    public static void updateDisplayBoard(char[][] arr1, char[][] arr2, Board.Difficulty boardtype){
+        for (int i = 0; i < boardtype.height; i++) {
+            for (int j = 0; j < boardtype.width; j++) {
+                arr1[i+2][j+2] = arr2[i][j];
             }
         }
     }
