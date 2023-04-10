@@ -55,12 +55,17 @@ public class Main {
                 System.out.println(Arrays.toString(chars));
             }
 
+            Board.Difficulty difficulty = trueBoard.getDifficulty();
+
             // Getting a valid x position
             while (true) {
                 System.out.println("Enter an X pos:");
                 String xInput = myObj.nextLine();
                 try {
                     xPos = Integer.parseInt(xInput);
+                    if (xPos >= difficulty.height) {
+                        continue;
+                    }
                     break;
                 } catch (NumberFormatException ignored) {
                 }
@@ -72,6 +77,9 @@ public class Main {
                 String xInput = myObj.nextLine();
                 try {
                     yPos = Integer.parseInt(xInput);
+                    if (yPos >= difficulty.width) {
+                        continue;
+                    }
                     break;
                 } catch (NumberFormatException ignored) {
                 }
