@@ -177,7 +177,7 @@ public class Board {
             }
         }
     }
-    public Board createBoard(Board.BoardType boardType) {
+    public Board createTrueBoard(Board.BoardType boardType) {
         Board board = new Board(boardType);
         board.placeMines();
         board.scrambleMines();
