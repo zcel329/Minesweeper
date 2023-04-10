@@ -55,18 +55,37 @@ public class Main {
         while (run) {
             int heightPos, widthPos;
 
-            Utility.updateDisplayBoard(displayBoard,userBoard,difficulty);
+            Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
 
             for (char[] chars : displayBoard) {
                 System.out.println(Arrays.toString(chars));
             }
 
+
+            char gameFlag = '0';
+            boolean loop = true;
+            while (loop) {
+                System.out.println("Would you like to flag ('F') or pick ('P') a tile?");
+                String input = myObj.nextLine();
+                input = input.toLowerCase();
+                switch (input) {
+                    case "p" -> {
+                        gameFlag = 'p';
+                        loop = false;
+
+                    }
+                    case "f" -> {
+                        gameFlag = 'f';
+                        loop = false;
+                    }
+                }
+            }
             // Getting a valid X position
             while (true) {
                 System.out.println("Enter a X pos:");
                 String xInput = myObj.nextLine();
                 try {
-                    widthPos = Integer.parseInt(xInput)-1;
+                    widthPos = Integer.parseInt(xInput) - 1;
                     if ((widthPos >= difficulty.width) || (widthPos < 0)) {
                         continue;
                     }
@@ -80,12 +99,32 @@ public class Main {
                 System.out.println("Enter an Y pos:");
                 String xInput = myObj.nextLine();
                 try {
-                    heightPos = Integer.parseInt(xInput)-1;
+                    heightPos = Integer.parseInt(xInput) - 1;
                     if ((heightPos >= difficulty.height) || (heightPos < 0)) {
                         continue;
                     }
                     break;
                 } catch (NumberFormatException ignored) {
+                }
+            }
+
+            if (gameFlag == 'f') {
+                if ((userBoard[heightPos][widthPos] != '*') && (userBoard[heightPos][widthPos] != 'F')) {
+                    System.out.println("ERROR: Cannot flag a revealed tile");
+                    continue;
+                } else if (userBoard[heightPos][widthPos] == 'F') {
+                    userBoard[heightPos][widthPos] = '*';
+                    continue;
+                } else if (userBoard[heightPos][widthPos] == '*') {
+                    userBoard[heightPos][widthPos] = 'F';
+                    continue;
+                }
+            }
+
+            if (gameFlag == 'p') {
+                if (userBoard[heightPos][widthPos] == 'F') {
+                    System.out.println("ERROR: Cannot reveal a flagged tile");
+                    continue;
                 }
             }
 
@@ -104,7 +143,7 @@ public class Main {
             switch (tileValue) {
                 case -1 -> {
                     Utility.createGameOverBoard(userBoard, trueBoard);
-                    Utility.updateDisplayBoard(displayBoard,userBoard,difficulty);
+                    Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
                     for (char[] chars : displayBoard) {
                         System.out.println(Arrays.toString(chars));
                     }
@@ -123,22 +162,23 @@ public class Main {
                         }
                     }
                 }
-                default -> userBoard[heightPos][widthPos] = (char) (trueBoard.getBoardArray()[heightPos][widthPos] + '0');
+                default ->
+                        userBoard[heightPos][widthPos] = (char) (trueBoard.getBoardArray()[heightPos][widthPos] + '0');
             }
 
-            int mineCounter = 0;
 
+            // Checking win condition
+            int mineCounter = 0;
             for (int i = 0; i < difficulty.height; i++) {
                 for (int j = 0; j < difficulty.width; j++) {
-                    if (userBoard[i][j] == '*') {
+                    if ((userBoard[i][j] == '*') || (userBoard[i][j] == 'F')) {
                         mineCounter++;
                     }
                 }
             }
-
             if (mineCounter == difficulty.mines) {
                 Utility.createGameOverBoard(userBoard, trueBoard);
-                Utility.updateDisplayBoard(displayBoard,userBoard,difficulty);
+                Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
                 for (char[] chars : displayBoard) {
                     System.out.println(Arrays.toString(chars));
                 }
