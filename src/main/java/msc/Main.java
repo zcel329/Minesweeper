@@ -125,6 +125,23 @@ public class Main {
                 if (userBoard[heightPos][widthPos] == 'F') {
                     System.out.println("ERROR: Cannot reveal a flagged tile");
                     continue;
+                } else if (userBoard[heightPos][widthPos] != '*') {
+                    System.out.println("Are you sure you want to reveal all adjacent tiles? (Y/N)");
+                    String input = myObj.nextLine();
+                    if (input.equalsIgnoreCase("y")) {
+                        Boolean foundBomb = Utility.searchAdjacentTiles(userBoard,trueBoard,heightPos,widthPos,-1);
+                        if (foundBomb) {
+                            Utility.createGameOverBoard(userBoard, trueBoard);
+                            Utility.updateDisplayBoard(displayBoard, userBoard, difficulty);
+                            for (char[] chars : displayBoard) {
+                                System.out.println(Arrays.toString(chars));
+                            }
+                            System.out.println("***GAME OVER***");
+                            run = false;
+                        }
+                    } else {
+                        continue;
+                    }
                 }
             }
 
@@ -156,7 +173,7 @@ public class Main {
                         for (int i = 0; i < difficulty.height; i++) {
                             for (int j = 0; j < difficulty.width; j++) {
                                 if (userBoard[i][j] == '0') {
-                                    Utility.searchAdjacentTiles(userBoard, trueBoard, i, j);
+                                    Utility.searchAdjacentTiles(userBoard, trueBoard, i, j,-1);
                                 }
                             }
                         }
