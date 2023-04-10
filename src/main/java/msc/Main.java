@@ -82,11 +82,20 @@ public class Main {
                     System.out.println("***GAME OVER***");
                     run = false;
                 }
-                case 1 -> {
+                case 0 -> {
                     userBoard[xPos][yPos] = (char)(trueBoard.getBoardArray()[xPos][yPos]+'0');
+                    for (int k = 0; k < 20; k++) {
+                        for (int i = 0; i < boardtype.height; i++) {
+                            for (int j = 0; j < boardtype.width; j++) {
+                                if (userBoard[i][j] == '0') {
+                                    userBoard = Utility.searchAdjacentTiles(userBoard,trueBoard,i,j);
+                                }
+                            }
+                        }
+                    }
                 }
                 default -> {
-                    userBoard = Utility.searchAdjacentTiles(userBoard,trueBoard,xPos,yPos,-1);
+                    userBoard[xPos][yPos] = (char)(trueBoard.getBoardArray()[xPos][yPos]+'0');
                 }
             }
         }

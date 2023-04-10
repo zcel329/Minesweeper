@@ -4,7 +4,7 @@ public class Utility {
 
 
 
-    public static char[][] searchAdjacentTiles(char[][] charArr, Board board, int x, int y, int target) {
+    public static char[][] searchAdjacentTiles(char[][] charArr, Board board, int x, int y) {
 
         Board.Difficulty difficulty = board.getDifficulty();
         int[][] intArr = board.getBoardArray();
@@ -13,9 +13,7 @@ public class Utility {
         if (x == 0 && y == 0) {
             for (int a = 0; a < 2; a++) {
                 for (int b = 0; b < 2; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -23,9 +21,7 @@ public class Utility {
         else if ((x == 0) && (y == difficulty.width - 1)) {
             for (int a = 0; a < 2; a++) {
                 for (int b = -1; b < 1; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -33,9 +29,7 @@ public class Utility {
         else if ((x == difficulty.height - 1) && (y == 0)) {
             for (int a = -1; a < 1; a++) {
                 for (int b = 0; b < 2; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -43,9 +37,7 @@ public class Utility {
         else if ((x == difficulty.height - 1) && (y == difficulty.width - 1)) {
             for (int a = -1; a < 1; a++) {
                 for (int b = -1; b < 1; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -53,9 +45,7 @@ public class Utility {
         else if (y == 0) {
             for (int a = -1; a < 2; a++) {
                 for (int b = 0; b < 2; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -63,9 +53,7 @@ public class Utility {
         else if (y == difficulty.width - 1) {
             for (int a = -1; a < 2; a++) {
                 for (int b = -1; b < 1; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -73,9 +61,7 @@ public class Utility {
         else if (x == 0) {
             for (int a = 0; a < 2; a++) {
                 for (int b = -1; b < 2; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -83,9 +69,7 @@ public class Utility {
         else if (x == difficulty.height - 1) {
             for (int a = -1; a < 1; a++) {
                 for (int b = -1; b < 2; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
@@ -93,9 +77,7 @@ public class Utility {
         else {
             for (int a = -1; a < 2; a++) {
                 for (int b = -1; b < 2; b++) {
-                    if (intArr[x + a][y + b] != target) {
-                        charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
-                    }
+                    charArr[x + a][y + b] = (char)(board.getBoardArray()[x + a][y + b]+'0');
                 }
             }
         }
