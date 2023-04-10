@@ -2,6 +2,8 @@ package msc;
 
 import java.util.Random;
 
+import static msc.Utility.searchValues;
+
 public class Board {
 
     enum Difficulty {
@@ -84,96 +86,17 @@ public class Board {
                 if (boardArray[i][j] == -1) {
                     continue;
                 }
-                // if top left
-                else if ((i == 0) && (j == 0)) {
-                    for (int a = 0; a < 2; a++) {
-                        for (int b = 0; b < 2; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
+
+                int[] searchValues = searchValues(i,j, this.height, this.width);
+
+                for (int a = searchValues[0]; a < searchValues[1]; a++) {
+                    for (int b = searchValues[2]; b < searchValues[3]; b++) {
+                        if (boardArray[i + a][j + b] == -1) {
+                            mineCounter++;
                         }
                     }
                 }
-                // if top right
-                else if ((i == 0) && (j == this.width - 1)) {
-                    for (int a = 0; a < 2; a++) {
-                        for (int b = -1; b < 1; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
-                // if bottom left
-                else if ((i == this.height - 1) && (j == 0)) {
-                    for (int a = -1; a < 1; a++) {
-                        for (int b = 0; b < 2; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
-                // if bottom right
-                else if ((i == this.height - 1) && (j == this.width - 1)) {
-                    for (int a = -1; a < 1; a++) {
-                        for (int b = -1; b < 1; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
-                // if non-corner left
-                else if (j == 0) {
-                    for (int a = -1; a < 2; a++) {
-                        for (int b = 0; b < 2; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
-                // if non-corner right
-                else if (j == this.width - 1) {
-                    for (int a = -1; a < 2; a++) {
-                        for (int b = -1; b < 1; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
-                // if non-corner top
-                else if (i == 0) {
-                    for (int a = 0; a < 2; a++) {
-                        for (int b = -1; b < 2; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
-                // if non-corner bot
-                else if (i == this.height - 1) {
-                    for (int a = -1; a < 1; a++) {
-                        for (int b = -1; b < 2; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
-                // else internal
-                else {
-                    for (int a = -1; a < 2; a++) {
-                        for (int b = -1; b < 2; b++) {
-                            if (boardArray[i + a][j + b] == -1) {
-                                mineCounter++;
-                            }
-                        }
-                    }
-                }
+
                 boardArray[i][j] = mineCounter;
                 mineCounter = 0;
             }

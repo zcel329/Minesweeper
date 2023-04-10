@@ -74,10 +74,10 @@ public class Utility {
 
         Board.Difficulty difficulty = board.getDifficulty();
 
-        int[] searchVals = searchValues(x,y, difficulty.height, difficulty.width);
+        int[] searchValues = searchValues(x,y, difficulty.height, difficulty.width);
 
-        for (int a = searchVals[0]; a < searchVals[1]; a++) {
-            for (int b = searchVals[2]; b < searchVals[3]; b++) {
+        for (int a = searchValues[0]; a < searchValues[1]; a++) {
+            for (int b = searchValues[2]; b < searchValues[3]; b++) {
                 charArr[x + a][y + b] = (char) (board.getBoardArray()[x + a][y + b] + '0');
             }
         }
