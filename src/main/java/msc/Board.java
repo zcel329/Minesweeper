@@ -4,35 +4,33 @@ import java.util.Random;
 
 public class Board {
 
-    enum BoardType {BEGINNER, INTERMEDIATE, EXPERT}
+    enum Difficulty {
+        BEGINNER(9,9,10),
+        INTERMEDIATE(16,16,40),
+        EXPERT(16,30,99);
+
+        public final int height;
+        public final int width;
+        public final int mines;
+
+        Difficulty(int height, int width, int mines) {
+            this.height = height;
+            this.width = width;
+            this.mines = mines;
+        }
+    }
 
     private int height;
     private int width;
     private int[][] boardArray;
-
     private int mines;
 
     public Board() {}
 
-
-    private Board(BoardType setting) {
-        switch (setting) {
-            case BEGINNER -> {
-                height = 9;
-                width = 9;
-                mines = 10;
-            }
-            case INTERMEDIATE -> {
-                height = 16;
-                width = 16;
-                mines = 40;
-            }
-            case EXPERT -> {
-                height = 16;
-                width = 30;
-                mines = 99;
-            }
-        }
+    private Board(Difficulty setting) {
+        this.height = setting.height;
+        this.width = setting.width;
+        this.mines = setting.mines;
         boardArray = new int[height][width];
 
     }
@@ -177,11 +175,16 @@ public class Board {
             }
         }
     }
-    public Board createTrueBoard(Board.BoardType boardType) {
-        Board board = new Board(boardType);
+    public Board createTrueBoard(Difficulty difficulty) {
+        Board board = new Board(difficulty);
         board.placeMines();
         board.scrambleMines();
         board.populateBoard();
         return board;
+    }
+
+    public char[][] createPlayerBoard(Difficulty difficulty) {
+        char[][] arr = {{'*', '*'}, {'*', '*'}};
+        return arr;
     }
 }
